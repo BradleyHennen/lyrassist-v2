@@ -1,0 +1,21 @@
+.welcome-container {
+  height: 100vh;
+  overflow: auto;
+  background-image: url("/assets/images/oscar-keys-ojVMh1QTVGY-unsplash.jpg") !important;
+  background-position: center !important;
+  background-size: cover !important;
+
+  h1,
+  p {
+    color: white !important;
+  }
+
+  .header {
+      margin-top: 25px;
+      font-size: 3.2rem;
+  }
+
+  .logo {
+    width: 40vw;
+  }
+}
