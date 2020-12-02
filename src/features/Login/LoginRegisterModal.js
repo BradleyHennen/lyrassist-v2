@@ -1,11 +1,14 @@
 import React, { useEffect } from "react";
 import { Modal, Form, Input, Button, Space, Col, Row, Divider, Typography } from "antd";
+import { connect } from 'react-redux';
+import { updateNewRegisterDetails } from './ducks'
 
-function LoginRegisterModal({ modalVisible, toggleModal }) {
+function LoginRegisterModal({ modalVisible, toggleModal, registerForm, loginForm }) {
     const { Text } = Typography;
 
     useEffect(() => {
         console.log('isOpenInput', modalVisible);
+
     }, [modalVisible])
 
     const onFinish = (values) => {
@@ -84,7 +87,7 @@ function LoginRegisterModal({ modalVisible, toggleModal }) {
             <Row align="center" type="flex">
                 <Col>
                     <Text>Need An Account?</Text>
-                    <Button type="link" style={{padding: 0, paddingLeft: '5px'}}>
+                    <Button type="link" style={{ padding: 0, paddingLeft: '5px' }}>
                         <Text strong>Create One</Text>
                     </Button>
                 </Col>
@@ -93,6 +96,15 @@ function LoginRegisterModal({ modalVisible, toggleModal }) {
         </Modal>
 
     );
-}
+};
 
-export default LoginRegisterModal;
+const mapStateToProps = (state, ownProps) => ({
+    registerForm: state.loginReducer.newSubscriberDetails,
+    loginForm: state.loginReducer.loginDetails
+});
+
+const mapDispatchToProps = {
+    updateNewRegisterDetails
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(LoginRegisterModal);

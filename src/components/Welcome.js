@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Typography, Layout, Button, Row, Col } from "antd";
 import { ReactComponent as ReactLogo } from '../assets/lyrassistLogo.svg'
-import LoginRegisterModal from './LoginRegisterModal';
+import LoginRegisterModal from '../features/Login/LoginRegisterModal';
 
 function Welcome() {
     const [isOpen, setIsOpen] = useState(false)
