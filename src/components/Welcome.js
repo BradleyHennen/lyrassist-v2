@@ -1,16 +1,13 @@
-import React, { useState } from "react";
+import React from "react";
 import { Typography, Layout, Button, Row, Col } from "antd";
 import { ReactComponent as ReactLogo } from '../assets/lyrassistLogo.svg'
-import LoginRegisterModal from '../features/Login/LoginRegisterModal';
+import LoginRegisterModal from '../features/Login/views/LoginRegisterModal';
+import { connect } from 'react-redux';
+import { toggleLoginModal } from '../features/Login/ducks'
 
-function Welcome() {
-    const [isOpen, setIsOpen] = useState(false)
+function Welcome({ toggleLoginModal }) {
     const { Title, Text } = Typography;
     const { Content } = Layout;
-
-    function toggleModal() {
-        setIsOpen(!isOpen)
-    }
 
     return (
         <>
@@ -43,18 +40,21 @@ function Welcome() {
                     </Row>
                     <Row gutter={[24, 24]}>
                         <Col span={24}>
-                            <Button type="primary" onClick={toggleModal}>Start Writing</Button>
+                            <Button type="primary" onClick={toggleLoginModal}>Start Writing</Button>
                         </Col>
                     </Row>
 
                 </Content>
             </Layout>
-            <LoginRegisterModal
-                modalVisible={isOpen}
-                toggleModal={toggleModal}
-            />
+            <LoginRegisterModal />
         </>
     );
 }
 
-export default Welcome;
+const mapStateToProps = (state) => ({});
+
+const mapDispatchToProps = {
+    toggleLoginModal
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Welcome);
