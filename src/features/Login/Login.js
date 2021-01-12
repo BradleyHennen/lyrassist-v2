@@ -1,18 +1,19 @@
-import React, { useEffect } from "react";
-import { Modal, Form, Input, Button, Space, Col, Row, Divider, Typography } from "antd";
+import React from "react";
+import { Form, Input, Button, Space, Col, Row, Divider, Typography } from "antd";
 import { connect } from 'react-redux';
-import { updateNewRegisterDetails } from './ducks'
+import { toggleCreateNew, toggleLoginModal } from './ducks'
+import { firebaseLogin } from '../../store/slices/firebaseAuthSlice'
+import { useHistory } from "react-router-dom";
 
-function LoginRegisterModal({ modalVisible, toggleModal, registerForm, loginForm }) {
+function Login({ toggleCreateNew, toggleLoginModal, firebaseLogin }) {
     const { Text } = Typography;
-
-    useEffect(() => {
-        console.log('isOpenInput', modalVisible);
-
-    }, [modalVisible])
+    const history = useHistory();
 
     const onFinish = (values) => {
-        console.log('Success:', values);
+        firebaseLogin(values.emailAddress, values.password, () => {
+            history.push('/user');
+            toggleLoginModal();
+        })
     };
 
     const onFinishFailed = (errorInfo) => {
@@ -29,12 +30,7 @@ function LoginRegisterModal({ modalVisible, toggleModal, registerForm, loginForm
     };
 
     return (
-        <Modal
-            title="Sign In"
-            visible={modalVisible}
-            onCancel={toggleModal}
-            footer={null}
-        >
+        <>
             <Form
                 name="basic"
                 onFinish={onFinish}
@@ -42,12 +38,13 @@ function LoginRegisterModal({ modalVisible, toggleModal, registerForm, loginForm
                 {...layout}
             >
                 <Form.Item
-                    label="Username"
-                    name="username"
+                    label="Email"
+                    name="emailAddress"
                     rules={[
                         {
+                            type: "email",
                             required: true,
-                            message: 'Please input your username',
+                            message: 'Please input your email',
                         },
                     ]}
                 >
@@ -71,11 +68,11 @@ function LoginRegisterModal({ modalVisible, toggleModal, registerForm, loginForm
                     <Row>
                         <Col span={4} offset={20}>
                             <Space>
-                                <Button type="secondary" onClick={toggleModal}>
+                                <Button type="secondary" onClick={toggleLoginModal}>
                                     Cancel
                                 </Button>
                                 <Button type="primary" htmlType="submit">
-                                    Submit
+                                    Login
                                 </Button>
                             </Space>
                         </Col>
@@ -87,24 +84,21 @@ function LoginRegisterModal({ modalVisible, toggleModal, registerForm, loginForm
             <Row align="center" type="flex">
                 <Col>
                     <Text>Need An Account?</Text>
-                    <Button type="link" style={{ padding: 0, paddingLeft: '5px' }}>
+                    <Button onClick={() => toggleCreateNew(true)} type="link" style={{ padding: 0, paddingLeft: '5px' }}>
                         <Text strong>Create One</Text>
                     </Button>
                 </Col>
             </Row>
-
-        </Modal>
-
+        </>
     );
 };
 
-const mapStateToProps = (state, ownProps) => ({
-    registerForm: state.loginReducer.newSubscriberDetails,
-    loginForm: state.loginReducer.loginDetails
-});
+const mapStateToProps = (state) => ({});
 
 const mapDispatchToProps = {
-    updateNewRegisterDetails
+    toggleCreateNew,
+    toggleLoginModal,
+    firebaseLogin
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(LoginRegisterModal);
+export default connect(mapStateToProps, mapDispatchToProps)(Login);

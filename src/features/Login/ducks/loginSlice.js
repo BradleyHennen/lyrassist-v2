@@ -1,44 +1,26 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-    newSubscriberDetails: {
-        userName: '',
-        emailAddress: '',
-        password: '',
-        confirmPassword: ''
-    },
-    loginDetails: {
-        userName: '',
-        password: ''
-    }
-
+    isLoginModalOpen: false,
+    isCreateNew: false,
 };
 
 const loginSlice = createSlice({
-    name: "ReachNow__Subscribers",
+    name: "Login",
     initialState,
     reducers: {
-        updateNewRegisterDetails(state, action) {
-            const { value, name, id } = action.payload
-            const test = state.newSubscriberDetails.map(item => {
-                if (item.id === id) {
-                    return {
-                        ...item,
-                        [name]: value
-                    }
-                }
-                else {
-                    return { ...item }
-                }
-            })
-
-            state.newSubscriberDetails = test;
+        toggleCreateNew(state, action) {
+            state.isCreateNew = action.payload
         },
+        toggleLoginModal(state, action) {
+            state.isLoginModalOpen = !state.isLoginModalOpen
+        }
     },
 });
 
 export const {
-    updateNewRegisterDetails,
+    toggleCreateNew,
+    toggleLoginModal
 } = loginSlice.actions;
 
 export default loginSlice.reducer;
