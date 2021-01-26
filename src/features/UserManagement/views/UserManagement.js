@@ -2,8 +2,9 @@ import React from "react";
 import { Typography, Layout, Button, Row, Col } from "antd";
 import { connect } from 'react-redux';
 import { firebaseLogout } from '../../../store/slices/firebaseAuthSlice'
+import { getDatamuse } from '../ducks/thunks';
 
-function UserManagement({ firebaseLogout }) {
+function UserManagement({ firebaseLogout, getDatamuse }) {
     const { Title, Text } = Typography;
     const { Content } = Layout;
 
@@ -19,6 +20,9 @@ function UserManagement({ firebaseLogout }) {
                     <Button onClick={() => firebaseLogout(null)} type="link" style={{ padding: 0, paddingLeft: '5px' }}>
                         <Text strong>Log Out</Text>
                     </Button>
+                    <Button onClick={() => getDatamuse()} type="link" style={{ padding: 0, paddingLeft: '5px' }}>
+                        <Text strong>Get Datamuse</Text>
+                    </Button>
                 </Content>
             </Layout>
         </>
@@ -28,7 +32,8 @@ function UserManagement({ firebaseLogout }) {
 const mapStateToProps = (state) => ({});
 
 const mapDispatchToProps = {
-    firebaseLogout
+    firebaseLogout,
+    getDatamuse
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(UserManagement);
