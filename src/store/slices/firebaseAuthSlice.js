@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import Cookies from "js-cookie";
 import { errorMessage } from '../../utils/alertMessageUtils'
 import firebase from "firebase/app";
-import "firebase/auth";
+import 'firebase/auth'
 
 
 const firebaseAuth = createSlice({
@@ -52,7 +52,6 @@ export function firebaseRegister(email, password, callback) {
 export function firebaseLogin(email, password, callback) {
     return async (dispatch) => {
         firebase.auth().signInWithEmailAndPassword(email, password).then((res) => {
-            console.log('res', res);
             dispatch(setUserEmail(res.user.email))
             dispatch(setIdToken(res.user.refreshToken))
             callback();
@@ -64,15 +63,12 @@ export function firebaseLogin(email, password, callback) {
     }
 }
 
-export function firebaseLogout(callback) {
+export function firebaseLogout() {
     return async (dispatch) => {
         firebase.auth().signOut().then((res) => {
-            console.log('logout success', res);
-            if (callback) {
-                callback()
-            }
+            window.location.assign(window.location)
         }).catch((error) => {
-            console.log('logout error', error);
+            console.error('logout error', error);
         });
     }
 }

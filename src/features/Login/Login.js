@@ -11,8 +11,10 @@ function Login({ toggleCreateNew, toggleLoginModal, firebaseLogin }) {
 
     const onFinish = (values) => {
         firebaseLogin(values.emailAddress, values.password, () => {
+            console.log('history', history);
+
             history.push('/user');
-            toggleLoginModal();
+            toggleLoginModal(false);
         })
     };
 
@@ -68,7 +70,7 @@ function Login({ toggleCreateNew, toggleLoginModal, firebaseLogin }) {
                     <Row>
                         <Col span={4} offset={20}>
                             <Space>
-                                <Button type="secondary" onClick={toggleLoginModal}>
+                                <Button type="secondary" onClick={() => toggleLoginModal(false)}>
                                     Cancel
                                 </Button>
                                 <Button type="primary" htmlType="submit">

@@ -1,13 +1,21 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Typography, Layout, Button, Row, Col } from "antd";
 import { ReactComponent as ReactLogo } from '../assets/lyrassistLogo.svg'
-import LoginRegisterModal from '../features/Login/views/LoginRegisterModal';
 import { connect } from 'react-redux';
 import { toggleLoginModal } from '../features/Login/ducks'
+import useQueryCheck from "../hooks/useQueryCheck";
 
 function Welcome({ toggleLoginModal }) {
     const { Title, Text } = Typography;
     const { Content } = Layout;
+    const query = useQueryCheck()
+
+    useEffect(() => {
+        if(query.get('login')){
+            console.log('alksdfjalksd');
+            toggleLoginModal(true)
+        }
+    })
 
     return (
         <>
@@ -40,13 +48,12 @@ function Welcome({ toggleLoginModal }) {
                     </Row>
                     <Row gutter={[24, 24]}>
                         <Col span={24}>
-                            <Button type="primary" onClick={toggleLoginModal}>Start Writing</Button>
+                            <Button type="primary" onClick={() => toggleLoginModal(true)}>Start Writing</Button>
                         </Col>
                     </Row>
 
                 </Content>
             </Layout>
-            <LoginRegisterModal />
         </>
     );
 }

@@ -17,7 +17,7 @@ function UserManagement({ firebaseLogout, getDatamuse }) {
                             <Title className="header">User Management</Title>
                         </Col>
                     </Row>
-                    <Button onClick={() => firebaseLogout(null)} type="link" style={{ padding: 0, paddingLeft: '5px' }}>
+                    <Button onClick={() => firebaseLogout()} type="link" style={{ padding: 0, paddingLeft: '5px' }}>
                         <Text strong>Log Out</Text>
                     </Button>
                     <Button onClick={() => getDatamuse()} type="link" style={{ padding: 0, paddingLeft: '5px' }}>

@@ -13,7 +13,7 @@ function Register({ toggleLoginModal, toggleCreateNew, firebaseRegister }) {
         if (values.password === values.confirmPassword) {
             firebaseRegister(values.email, values.password, () => {
                 history.push('/user');
-                toggleLoginModal();
+                toggleLoginModal(false);
             })
         } else {
             console.log('Error');
@@ -84,7 +84,7 @@ function Register({ toggleLoginModal, toggleCreateNew, firebaseRegister }) {
                     <Row>
                         <Col span={4} offset={20}>
                             <Space>
-                                <Button type="secondary" onClick={toggleLoginModal}>
+                                <Button type="secondary" onClick={() => toggleLoginModal(false)}>
                                     Cancel
                                 </Button>
                                 <Button type="primary" htmlType="submit">

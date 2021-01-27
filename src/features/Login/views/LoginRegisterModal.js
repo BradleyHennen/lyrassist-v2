@@ -10,7 +10,7 @@ function LoginRegisterModal({ isCreateNew, isLoginModalOpen, toggleLoginModal })
         <Modal
             title="Sign In"
             visible={isLoginModalOpen}
-            onCancel={toggleLoginModal}
+            onCancel={() => toggleLoginModal(false)}
             footer={null}
         >
             {isCreateNew ? <Register /> : <Login />}

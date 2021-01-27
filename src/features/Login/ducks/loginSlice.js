@@ -13,7 +13,7 @@ const loginSlice = createSlice({
             state.isCreateNew = action.payload
         },
         toggleLoginModal(state, action) {
-            state.isLoginModalOpen = !state.isLoginModalOpen
+            state.isLoginModalOpen = action.payload
         }
     },
 });
